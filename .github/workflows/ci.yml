@@ -1,0 +1,47 @@
+name: LockedIn CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    lint:
+        name: ShellCheck Lint
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Install ShellCheck
+              run: sudo apt-get install -y shellcheck
+
+            - name: Run ShellCheck
+              run: |
+                  shellcheck lockedin
+                  shellcheck modules/*.sh
+                  shellcheck utils/*.sh
+
+    validate:
+        name: Sanity Check
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Install Dependencies
+              run: sudo apt-get install -y jq
+
+            - name: Verify Version
+              run: |
+                  chmod +x lockedin modules/*.sh utils/*.sh
+                  ./lockedin --version
+
+            - name: Verify Data Initialization
+              run: |
+                  ./lockedin stats <<EOF
+                  EOF
+                  ls -d $HOME/.lockedin
+                  ls $HOME/.lockedin/tasks.json
+                  ls $HOME/.lockedin/projects.json
