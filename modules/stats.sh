@@ -1,7 +1,9 @@
 #!/bin/bash
 
 MODULE_DIR=$(dirname "${BASH_SOURCE[0]}")
+# shellcheck source=./utils/db.sh
 source "$MODULE_DIR/../utils/db.sh"
+# shellcheck source=./utils/ui.sh
 source "$MODULE_DIR/../utils/ui.sh"
 
 show_stats() {

@@ -1,7 +1,9 @@
 #!/bin/bash
 
 MODULE_DIR=$(dirname "${BASH_SOURCE[0]}")
+# shellcheck source=./utils/db.sh
 source "$MODULE_DIR/../utils/db.sh"
+# shellcheck source=./utils/ui.sh
 source "$MODULE_DIR/../utils/ui.sh"
 
 manage_tasks() {
@@ -9,7 +11,8 @@ manage_tasks() {
         clear_screen
         show_header "Task Management"
         
-        local action=$(select_option "Choose action" "View All Tasks" "Add Task" "Mark Task Done" "Delete Task" "Filter Tasks" "Back")
+        local action
+        action=$(select_option "Choose action" "View All Tasks" "Add Task" "Mark Task Done" "Delete Task" "Filter Tasks" "Back")
         
         case "$action" in
             "View All Tasks")
@@ -65,7 +68,8 @@ add_task() {
     read -p "Due Date (YYYY-MM-DD, default today): " due
     [[ -z "$due" ]] && due=$(date +%Y-%m-%d)
     
-    local pri=$(select_option "Priority" "low" "medium" "high")
+    local pri
+    pri=$(select_option "Priority" "low" "medium" "high")
     
     # Optional Project Link
     local proj_id=""
@@ -103,7 +107,8 @@ delete_task() {
 }
 
 filter_tasks_menu() {
-    local f=$(select_option "Filter by" "Today" "Overdue" "High Priority" "Back")
+    local f
+    f=$(select_option "Filter by" "Today" "Overdue" "High Priority" "Back")
     case "$f" in
         "Today") view_tasks "today"; read -p "Press enter..."; ;;
         "Overdue") view_tasks "overdue"; read -p "Press enter..."; ;;

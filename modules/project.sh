@@ -1,7 +1,9 @@
 #!/bin/bash
 
 MODULE_DIR=$(dirname "${BASH_SOURCE[0]}")
+# shellcheck source=./utils/db.sh
 source "$MODULE_DIR/../utils/db.sh"
+# shellcheck source=./utils/ui.sh
 source "$MODULE_DIR/../utils/ui.sh"
 
 manage_projects() {
@@ -9,7 +11,8 @@ manage_projects() {
         clear_screen
         show_header "Project Management"
         
-        local action=$(select_option "Choose action" "View Projects" "Add Project" "Edit Project" "Delete Project" "Back")
+        local action
+        action=$(select_option "Choose action" "View Projects" "Add Project" "Edit Project" "Delete Project" "Back")
         
         case "$action" in
             "View Projects")

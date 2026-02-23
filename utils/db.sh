@@ -1,6 +1,8 @@
 #!/bin/bash
 
+# shellcheck source=./config.env
 source "$(dirname "${BASH_SOURCE[0]}")/../config.env"
+# shellcheck source=./utils/colors.sh
 source "$(dirname "${BASH_SOURCE[0]}")/colors.sh"
 
 # Check if jq is installed
