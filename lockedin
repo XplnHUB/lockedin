@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Configuration and source utilities
+BASE_DIR=$(dirname "$(readlink -f "$0")")
+source "$BASE_DIR/config.env"
+source "$BASE_DIR/utils/colors.sh"
+source "$BASE_DIR/utils/ui.sh"
+source "$BASE_DIR/modules/task.sh"
+source "$BASE_DIR/modules/project.sh"
+source "$BASE_DIR/modules/today.sh"
+source "$BASE_DIR/modules/stats.sh"
+
+# Cleanup on exit
+trap "clear; exit" INT TERM
+
+show_help() {
+    echo "LockedIn Productivity Manager v$VERSION"
+    echo ""
+    echo "Usage: lockedin [command]"
+    echo ""
+    echo "Commands:"
+    echo "  task           Manage tasks"
+    echo "  project        Manage projects"
+    echo "  today          Show today's tasks"
+    echo "  stats          Show statistics"
+    echo "  --help, -h     Show this help"
+    echo "  --version, -v  Show version"
+    echo ""
+    echo "Running without arguments opens the interactive menu."
+}
+
+show_version() {
+    echo "LockedIn v$VERSION"
+}
+
+main_menu() {
+    while true; do
+        clear_screen
+        show_banner
+        echo "  ${BOLD}Focus is key. Stay locked in.${RESET}"
+        echo ""
+        
+        local choice=$(select_option "Main Menu" "Todo" "Projects" "Today" "Stats" "Exit")
+        
+        case "$choice" in
+            "Todo") manage_tasks ;;
+            "Projects") manage_projects ;;
+            "Today") show_today ;;
+            "Stats") show_stats ;;
+            "Exit") clear; exit 0 ;;
+        esac
+    done
+}
+
+# Command line parsing
+case "$1" in
+    "task") manage_tasks ;;
+    "project") manage_projects ;;
+    "today") show_today ;;
+    "stats") show_stats ;;
+    "--help"|"-h") show_help ;;
+    "--version"|"-v") show_version ;;
+    "") main_menu ;;
+    *) echo "Unknown command: $1"; show_help; exit 1 ;;
+esac
