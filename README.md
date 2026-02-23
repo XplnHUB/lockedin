@@ -2,6 +2,11 @@
 
 LockedIn is a modular, Bash-based productivity management tool designed for terminal users. It provides a robust framework for managing tasks and projects through a Command Line Interface (CLI) using local JSON data persistence.
 
+<img width="1195" height="707" alt="Screenshot 2026-02-23 at 19 03 37" src="https://github.com/user-attachments/assets/ba1561e4-6c22-47d3-990d-1a15419b084d" />
+<img width="1512" height="982" alt="Screenshot 2026-02-23 at 19 04 35" src="https://github.com/user-attachments/assets/73a3173d-0cd7-47a4-b02e-cbca6f33c05c" />
+<img width="1512" height="982" alt="Screenshot 2026-02-23 at 19 04 16" src="https://github.com/user-attachments/assets/34083a45-334e-4f7c-8241-b2cbd46ddc20" />
+
+
 ## Table of Contents
 1. Introduction
 2. Key Features
