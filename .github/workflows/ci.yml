@@ -1,4 +1,4 @@
-name: LockedIn CI
+name: LockedIn
 
 on:
     push:
