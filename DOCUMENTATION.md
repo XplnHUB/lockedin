@@ -1,4 +1,4 @@
-# LockedIn
+# LockedIn Technical Documentation
 
 LockedIn is a modular, Bash-based productivity management tool designed for terminal users. It provides a robust framework for managing tasks and projects through a Command Line Interface (CLI) using local JSON data persistence.
 
@@ -18,7 +18,7 @@ LockedIn is designed to bridge the gap between simple todo lists and complex pro
 
 ## 2. Key Features
 - Interactive Interface: A full-screen interactive menu for intuitive navigation.
-- Task CRUD: Complete Create, Read, Update, and Delete operations for individual tasks.
+- Task Management: Complete Create, Read, Update, and Delete operations for individual tasks.
 - Project Organization: Ability to group tasks under specific projects for better oversight.
 - Data Persistence: Local storage using standard JSON format, allowing for manual backups or external processing.
 - Statistics Dashboard: Real-time calculation of task completion rates and project status.
