@@ -34,12 +34,10 @@ manage_projects() {
 
 view_projects() {
     show_header "All Projects"
-    printf "${CYAN}${BOLD}%-5s %-20s %-15s %-30s${RESET}\n" "ID" "Title" "Status" "Description"
-    echo "--------------------------------------------------------------------------------"
-    jq -r '.[] | "\(.id)\t\(.title)\t\(.status)\t\(.description)"' "$PROJECTS_DB" | while IFS=$'\t' read -r id title status desc; do
-        local color=$RESET
-        [[ "$status" == "completed" ]] && color=$GREEN
-        printf "${color}%-5s %-20s %-15s %-30s${RESET}\n" "$id" "$title" "$status" "$desc"
+    printf "${CYAN}${BOLD}%-5s %-20s %-35s %-30s${RESET}\n" "ID" "Title" "Repo URL" "Description"
+    echo "----------------------------------------------------------------------------------------------------------------"
+    jq -r '.[] | "\(.id)\t\(.title)\t\(.repo)\t\(.description)"' "$PROJECTS_DB" | while IFS=$'\t' read -r id title repo desc; do
+        printf "${RESET}%-5s %-20s %-35s %-30s${RESET}\n" "$id" "$title" "$repo" "$desc"
     done
 }
 
@@ -55,7 +53,7 @@ add_project() {
         --arg title "$title" \
         --arg desc "$desc" \
         --arg repo "$repo" \
-        '{id: ($id|tonumber), title: $title, description: $desc, repo: $repo, status: "active"}')
+        '{id: ($id|tonumber), title: $title, description: $desc, repo: $repo}')
     
     db_add "$PROJECTS_DB" "$json"
     echo "${GREEN}Project added!${RESET}"
@@ -73,11 +71,11 @@ edit_project() {
     fi
     
     read -p "New Title (leave blank to keep current): " title
-    read -p "New Status (active/completed): " status
+    read -p "New Repo URL (leave blank to keep current): " repo
     
     local updates=""
     [[ -n "$title" ]] && updates+=".title = \"$title\" | "
-    [[ -n "$status" ]] && updates+=".status = \"$status\" | "
+    [[ -n "$repo" ]] && updates+=".repo = \"$repo\" | "
     updates=${updates% | }
     
     if [[ -n "$updates" ]]; then
