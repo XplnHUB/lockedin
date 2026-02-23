@@ -1,6 +1,6 @@
 {
     "name": "lockedin",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "A production-quality terminal-based productivity manager built in Bash.",
     "main": "lockedin",
     "bin": {
